@@ -10,6 +10,7 @@ import processing.net.*;
 Client myClient;
 float a;
 String s;
+byte[] byteBuffer = new byte[10];
 
 void setup() {
   size(640, 360);
@@ -19,12 +20,15 @@ void setup() {
 }
 
 void draw() {
-  String temp = myClient.readString();
-  // if we got data from server and it's new
-  if (temp != null && !temp.equals(s)){
-    s = temp;
-    print(s);
-  }
+  int byteCount = myClient.readBytes(byteBuffer); 
+  if (byteCount > 0 ) {
+    // Convert the byte array to a String
+    String myString = new String(byteBuffer);
+    
+    // No idea why I need to do this - int() returns 0
+    int increase = int(float(myString));
+    println(increase);
+  } 
   background(51);
   line(0, a, width, a);  
   a = a - 0.5;
