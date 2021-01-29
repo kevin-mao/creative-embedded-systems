@@ -8,6 +8,7 @@ PORT = 50007              # Arbitrary non-privileged port
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
 s.listen(1)
+print(f"Listening on {PORT}")
 
 conn, addr = s.accept()
 print('Connected by', addr)
@@ -18,8 +19,16 @@ while True:
         data = r.json()
         increase = data['positiveIncrease']
         print(f"New cases on {data['date']}: {increase}")
+
+        # send today's data
         conn.send(bytes(str(increase), 'utf8'))
 
-        # sleep for 12 hours
+        # send again in 12 hours
         time.sleep(4)
+
+    # if request failed, try again in 0.5 second
+    else:
+        print("Failed. Trying again...")
+        time.sleep(0.5)
+
 conn.close()
