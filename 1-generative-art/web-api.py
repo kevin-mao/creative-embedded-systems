@@ -47,12 +47,12 @@ def main():
         if r.status_code == 200:
             soup = BeautifulSoup(r.content, 'html.parser')
             positive = int(soup.select(".field--name-field-cu-card-text h3")[1].text)
-            print(f"New cases over past week: {positive}")
+            print(f"New cases this past week: {positive}")
 
             # send today's data
             conn.send(bytes(str(positive), 'utf8'))
 
-            # flash red for half a second for each new case today
+            # flash red for a second for each new case past week
             flash(positive)
 
             # sleep for an hour
