@@ -1,6 +1,12 @@
 # Module 1: Generative Art
 In this piece, every hour my program finds the number of positive COVID cases at Columbia in the past week. Once it finds this number, the LEDS will blink red that number of times and will display that number of Roarees with facemask gifs in a grid.
 
+## Tools
+- Python (call web API)
+- Processing (visualization)
+- Raspberry Pi
+- NeoPixels LED module
+
 ## About the codebase
 The python script `web-api.py` scrapes https://covid19.columbia.edu/ to find the number of positive cases. It then uses the socket api to send that number to the Processing script `processing/processing.pde`. The python script acts as the server and the Processing script acts as the client, so `web-api.py` should be run first. The program uses NeoPixel Python library to control the LEDs ([reference](https://learn.adafruit.com/neopixels-on-raspberry-pi/python-usage)).
 
