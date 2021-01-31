@@ -22,3 +22,8 @@ I am using a Raspberry Pi Model 4B with an 8 LED NeoPixels module and a 1920x108
 - Pi 5V to NeoPixel 5V
 - Pi GND to NeoPixel GND
 - Pi GPIO18 to NeoPixel Din
+
+## Video
+I was unable to place my work in public space from which your window is visible as I am living on the 6th floor of a dorm with no lounges.
+
+https://youtu.be/BzOPm1rB9wc
