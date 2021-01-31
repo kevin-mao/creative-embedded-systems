@@ -50,12 +50,12 @@ def main():
             print(f"New cases this past week: {positive}")
 
             # send today's data
-            conn.send(bytes(str(positive), 'utf8'))
+            conn.send(bytes(str(positive), "utf8"))
 
             # flash red for a second for each new case past week
             flash(positive)
 
-            # sleep for an hour
+            print("Sleeping for 1 hour...")
             time.sleep(3600)
 
         # if request failed, try again in 0.5 second
