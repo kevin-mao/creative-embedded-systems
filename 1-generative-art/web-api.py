@@ -31,8 +31,8 @@ def flash(loops):
 
 
 def main():
-    HOST = ''                 # Symbolic name meaning all available interfaces
-    PORT = 50007              # Arbitrary non-privileged port
+    HOST = ''
+    PORT = 50007
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
     s.listen(1)

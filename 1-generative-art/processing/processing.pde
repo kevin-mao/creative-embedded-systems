@@ -9,7 +9,6 @@ byte[] byteBuffer = new byte[10];
 
 void setup() {
   fullScreen();
-  stroke(255);
   myClient = new Client(this, "127.0.0.1", 50007);
   
   // skip first 5 frames because they're a different size
