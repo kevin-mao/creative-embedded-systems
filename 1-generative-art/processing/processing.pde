@@ -1,7 +1,7 @@
 import processing.net.*;
 Client myClient;
 
-int numFrames = 39;  // The number of frames in the animation
+int numFrames = 34;  // The number of frames in the animation
 int currentFrame = 0;
 int positive = 0;
 PImage[] images = new PImage[numFrames];
@@ -22,9 +22,9 @@ void setup() {
     positive = 20;
   }
 
-  for (int i = 0; i < numFrames; i++) {
+  for (int i = 5; i < numFrames+5; i++) {
    String imageName = "roaree/roaree_" + nf(i, 3) + ".png";
-   images[i] = loadImage(imageName);
+   images[i-5] = loadImage(imageName);
   }
 }
  
@@ -35,16 +35,19 @@ void draw() {
   int x = 0;
   int y = 0;
   int count = 0;
+  int offset = 0;
   for (x = 300; x < 1300; x += w) { 
     for (y = 0; y < 1000; y += w) {
-      image(images[(currentFrame) % numFrames], x, y, w, w);
+      image(images[(currentFrame+offset) % numFrames], x, y, w, w);
+      offset+=2;
       count++;
     }
   }
-   x += w;
+  x += w;
   for (int left = 0; left < positive - count; left++) {
     y += w;
-    println(x, y);
-    image(images[(currentFrame) % numFrames], x, y, w, w);
+    offset+=2;
+    println(images[(currentFrame+offset) % numFrames], x, y, w);
+    image(images[(currentFrame+offset) % numFrames], x, y, w, w);
   }
 }
