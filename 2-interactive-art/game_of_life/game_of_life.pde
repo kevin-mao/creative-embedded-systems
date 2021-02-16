@@ -24,11 +24,9 @@ NPC[] npcArray;
 
 void setup() {
   fullScreen();
-  smooth();
-
   textSize(32);
-  String portName = Serial.list()[0];
-  myPort = new Serial(this, portName, 9600);
+  String portName = Serial.list()[2];
+  myPort = new Serial(this, portName, 115200);
   x = (width / 2) - 50;
   y = height-100;
   
@@ -184,7 +182,7 @@ void draw() {
 
     if (!conforming()) {
       count++;
-      if (count == 200) {
+      if (count == 50) {
         state = "over";
       }
     }
