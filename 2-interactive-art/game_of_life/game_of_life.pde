@@ -29,7 +29,7 @@ void setup() {
   myPort = new Serial(this, portName, 115200);
   x = (width / 2) - 50;
   y = height-100;
-  
+    
   state = "off";
   shape = "tri";
   count = 0;
@@ -54,7 +54,7 @@ String[] readData() {
   
 void drawNPCs() {
   // randomly switch states
-  if (random(100) < 10 && lastSwitch >= 500) {
+  if (random(100) < 10 && lastSwitch >= 50) {
     count = 0;
     lastSwitch = 0;
     if (state.equals("circle")) {
@@ -148,12 +148,14 @@ void draw() {
       state = "circle";
     }
   }
-  if (restart == 100) {
+  if (restart == 10) {
     restart = 0;
     count = 0;
     lastSwitch = 0;
     state = "square";
     shape= "tri";
+    x = (width / 2) - 50;
+    y = height-100;
     initializeNPC();
   }
   if (state.equals("off")) {
@@ -182,7 +184,7 @@ void draw() {
 
     if (!conforming()) {
       count++;
-      if (count == 50) {
+      if (count == 40) {
         state = "over";
       }
     }
