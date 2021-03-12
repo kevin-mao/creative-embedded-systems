@@ -11,7 +11,7 @@ import hypermedia.net.*;
 
 
 UDP udp;  // define the UDP object    
-String ip = "192.168.127.170";  // the remote IP address
+String ip = "192.168.245.170";  // the remote IP address
 int port = 4210;    // the destination port
     
 int x, y;
@@ -25,10 +25,10 @@ int count;
 int lastSwitch;
 int restart ;
 NPC[] npcArray; 
-String[] vals;
+String[] vals = {"1600", "1600", "1", "1", "1", "1"};
 
 void setup() {
-  fullScreen();
+  fullScreen(2);
   textSize(32);
   
   udp = new UDP( this, 4210 );
@@ -57,7 +57,7 @@ void initializeNPC() {
   
 void drawNPCs() {
   // randomly switch states
-  if (random(100) < 10 && lastSwitch >= 50) {
+  if (random(100) < 10 && lastSwitch >= 150) {
     count = 0;
     lastSwitch = 0;
     if (state.equals("circle")) {
@@ -87,7 +87,7 @@ void drawCharacter() {
     
     // if flipped again, stop game
     Boolean flipped = int(vals[SWITCH].trim()) == 1;
-    if (flipped) {
+    if (!state.equals("off") && flipped) {
       state = "off";
       return;
     }
@@ -98,24 +98,24 @@ void drawCharacter() {
     }
     
     if (xVal < 1000) {
-      xChange = -40;
-    } else if (xVal > 1000 && xVal < 1700) {
       xChange = -20;
+    } else if (xVal > 1000 && xVal < 1500) {
+      xChange = -10;
     } else if (xVal > 2000 && xVal < 3000) {
-      xChange = 20;
+      xChange = 10;
     } else if (xVal > 3000) { 
-      xChange = 40;
+      xChange = 20;
     }
     
     
     if (yVal < 1000) {
-      yChange = -50;
-    } else if (yVal > 1000 && yVal < 1700) {
       yChange = -20;
+    } else if (yVal > 1000 && yVal < 1500 ) {
+      yChange = -10;
     } else if (yVal > 2000 && yVal < 3000) {
-      yChange = 20;
+      yChange = 10;
     } else if (yVal > 3000) { 
-      yChange = 50;
+      yChange = 20;
     }
     
     x += xChange;
@@ -142,24 +142,7 @@ Boolean collision() {
 void draw() {
   background(50);
   // while state is off, check if user flips switch
-  if (vals != null && state.equals("off")) { 
-    int switchVal = int(vals[SWITCH]);
-
-    if (switchVal == 0) {
-      state = "circle";
-    }
-  }
-  if (restart == 10) {
-    restart = 0;
-    count = 0;
-    lastSwitch = 0;
-    state = "square";
-    shape= "tri";
-    x = (width / 2) - 50;
-    y = height-100;
-    initializeNPC();
-  }
-  if (state.equals("off")) {
+  if (state.equals("off")) { 
     String s = "Flip the switch to explore! Flip again to stop.";
     String s2 = "Press the green button to wear circle shape.";
     String s3 = "Press the red button to wear square shape.";
@@ -168,31 +151,50 @@ void draw() {
     text(s2, width/2-400, height/2); 
     text(s3, width/2-400, height/2+50); 
     text(s4, width/2-400, height/2+100); 
-  } else if (state.equals("over")) {
-    String s = "You didn't conform to the norm!";
-    text(s, width/2-250, height/2);
-    restart++;
-  } else if (state.equals("failed")) {
-    String s = "You were noticed!";
-    text(s, width/2-150, height/2);
-    restart++;
-  } else {
-    drawNPCs();
-    drawCharacter();
-    if (collision()) {
-      state = "failed";
-    }
+      
+    int switchVal = int(vals[SWITCH]);
 
-    if (!conforming()) {
-      count++;
-      if (count == 40) {
-        state = "over";
+    if (switchVal == 0) {
+      state = "circle";
+    }
+  } else {
+    if (restart == 100) {
+      restart = 0;
+      count = 0;
+      lastSwitch = 0;
+      state = "square";
+      shape= "tri";
+      x = (width / 2) - 50;
+      y = height-100;
+      initializeNPC();
+    }
+    if (state.equals("over")) {
+      String s = "You didn't conform to the norm!";
+      text(s, width/2-250, height/2);
+      restart++;
+    } else if (state.equals("failed")) {
+      String s = "You were noticed!";
+      text(s, width/2-150, height/2);
+      restart++;
+    } else {
+      drawNPCs();
+      drawCharacter();
+      if (collision()) {
+        state = "failed";
+      }
+  
+      if (!conforming()) {
+        count++;
+        if (count == 150) {
+          state = "over";
+        }
       }
     }
   }
 }
   
 void receive(byte[] data) {
-   String raw = new String(data);
+   String raw = new String(data).trim();
+   println(raw);
    vals = split(raw, ",");
 }

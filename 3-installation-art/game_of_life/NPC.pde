@@ -12,8 +12,8 @@ class NPC {
     y = ypos; 
     size = csize;
     
-    xSpeed = random(-20, 20); 
-    ySpeed = random(-20, 20); 
+    xSpeed = random(-10, 10); 
+    ySpeed = random(-10, 10); 
     
   }
 

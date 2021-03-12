@@ -2,13 +2,12 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
-//set up to connect to an existing network (e.g. mobile hotspot from laptop that will run the python code)
 const char* ssid = "Man cave 2";
 const char* password = "12345678";
 WiFiUDP Udp;
 unsigned int localUdpPort = 4210;  //  port to listen on
 char incomingPacket[255];  // buffer for incoming packets
-int xyzPins[] = {13, 12, 14};
+int xyzPins[] = {36, 32, 14};
 
 void setup()
 {
@@ -20,8 +19,6 @@ void setup()
   int status = WL_IDLE_STATUS;
   Serial.begin(115200);
   WiFi.begin(ssid, password);
-  Serial.println("");
-
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -61,8 +58,7 @@ void loop()
   Serial.printf("%d,%d,%d,%d,%d,%d\n", xVal, yVal, zVal, buttonVal1, buttonVal2, switchVal);
   // once we know where we got the inital packet from, send data back to that IP address and port
   Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
-  // Just test touch pin - Touch0 is T0 which is on GPIO 4.
   Udp.printf("%d,%d,%d,%d,%d,%d\n", xVal, yVal, zVal, buttonVal1, buttonVal2, switchVal);
   Udp.endPacket();
-  delay(1000);
+  delay(200);
 }
