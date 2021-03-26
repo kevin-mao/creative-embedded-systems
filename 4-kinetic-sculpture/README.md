@@ -1,7 +1,7 @@
 # Module 4: Kinetic Sculpture 
 
 This project builds a display platform for my Amiibo (Nintendo figurines).
-It can be controleld using a website: to start the sculpture, press the button 
+It can be controlled over WIFI via a website: to start the sculpture, press the button 
 at [http://165.227.76.232:3000/km3290](http://165.227.76.232:3000/km3290]).
 When the sculpture is running, both motors begin rotating
 180 degrees back and both (simultaneously). Unfortunately, I was unable to
