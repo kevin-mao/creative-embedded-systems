@@ -26,7 +26,7 @@ cut out for the two motors.
 ## Software Configuration
 This code was written and flashed to ESP32 Wrover unit using Arduino IDE. 
 The code is in `sketch_mar24a/` and used the code from that textbook chapters 18 
-and 19 as reference. The code uses WiFi library to send G
+and 19 as reference. The code uses WiFi library to connect to Columbia's wifi, HTTPClient to send GET requests to check status of webserver, and ESP32Servo to control the servo motor. 
 
 ## Pictures and video
 [Video](https://youtu.be/MFyOs3ibuYE) of demo
