@@ -17,11 +17,19 @@ Components
 
 ## Software Configuration
 The ESP32 was used to grab user input (`user_input/`) and its code was written and flashed to ESP32 Wrover unit using Arduino IDE. 
-It reads joystick and button signals and writes data to its Serial port, which the python script on the Pi reads. The Python script is in an infite loop
+It reads joystick and button signals and writes data to its Serial port, which the python script on the Pi reads. The Python script is in an infinite loop
 that reads these inputs, and if it detects a button press, it determines an emotion (either by taking a picture or using joystick input)
 and begins to play music via VLC, the multimedia software that comes with Raspberry Pi. 
 
+I decided to use Google Cloud Vision API and I followed this [guide](https://cloud.google.com/vision/docs/detecting-faces#vision_face_detection-python).
+For taking pictures I used the Raspberry Pi picamera module and I followed this [guide](https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/).
+I also needed to install [python-vlc](https://pypi.org/project/python-vlc/) to control VLC from python and [PySerial](https://pyserial.readthedocs.io/en/latest/)
+to read Serial data from ESP32.
+
 ## Pictures and video
+[Video](https://youtu.be/ZUFFgDoTyWA) of demo.
+In this video, I first smile at the camera, and this triggers happy music to play. I then tilt the joystick down and press the button, which triggers
+sad music. I then tilt the joystick left and press the button, which triggers calming music.
 
 Hardware configuration
 ![Hardware](Hardware.jpg)
