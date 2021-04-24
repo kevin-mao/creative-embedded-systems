@@ -26,6 +26,9 @@ For taking pictures I used the Raspberry Pi picamera module and I followed this 
 I also needed to install [python-vlc](https://pypi.org/project/python-vlc/) to control VLC from python and [PySerial](https://pyserial.readthedocs.io/en/latest/)
 to read Serial data from ESP32.
 
+NOTE for the Google Cloud Vision API to work, you need to setup a google cloud project, download the service key and download it to this directory. You 
+will then need to export the path to the service key as an environment variable "GOOGLE_APPLICATION_CREDENTIALS".
+
 ## Pictures and video
 [Video](https://youtu.be/ZUFFgDoTyWA) of demo.
 In this video, I first smile at the camera, and this triggers happy music to play. I then tilt the joystick down and press the button, which triggers
