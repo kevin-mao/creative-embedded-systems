@@ -1,10 +1,11 @@
-from picamera import PiCamera
-from google.cloud import vision
 import io
 import time
 import vlc 
 import random
 import os
+import serial
+from picamera import PiCamera
+from google.cloud import vision
 
 ANGRY = 'angry'
 HAPPY = 'happy'
@@ -17,9 +18,8 @@ def play_music(emotion):
     print(f"Playing song: {song}")
 
     media = vlc.MediaPlayer(f"./music/{emotion}/{song}")
+
     media.play()
-    while True:
-        pass
 
 def take_picture(path):
     camera = PiCamera()
@@ -57,15 +57,35 @@ def detect_faces(path):
         res = NEUTRAL
     else:
         res = max(emotions, key=emotions.get)
-    print(f"You're looking {res}")
 
     return res
 
 def main():
     path = 'images/face.jpg'
-    take_picture(path)
-    emotion = detect_faces(path)
-    play_music(emotion)
+    with serial.Serial('/dev/ttyUSB0', 115200, timeout=1) as ser:
+        while True:
+            line = ser.readline().decode()
+            print(line)
+            x, y, z, button = [int(temp) for temp in line.split(',')]
+            if button == 0:
+                # if pushed to up, set emotion to happy
+                if y == 0:
+                    emotion = HAPPY
+                # if pushed to down, set emotion to sad
+                elif y == 4095:
+                    emotion = SAD
+                # if pushed left, set emotion to angry
+                elif x == 0:
+                    emotion = ANGRY
+                # if pushed right, set emotion to surprised
+                elif x == 4095:
+                    emotion = SURPRISED
+                else:
+                    take_picture(path)
+                    emotion = detect_faces(path)
+
+                print(f"You're looking {emotion}")
+                play_music(emotion)
 
 
 if __name__ == "__main__":
